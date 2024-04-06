@@ -16,7 +16,7 @@ function App() {
           <AuthPage />
         </Route>
         <Route path='/admin'>
-          <AdminPage />
+          {isLoggedIn ? <AdminPage /> : <Redirect to="/login"/>}
         </Route>
       </Switch>
     </>

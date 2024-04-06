@@ -29,7 +29,6 @@ function AuthPage() {
     const reqBody = { email, password };
     try {
       const response = await axios.post(loginUrl, reqBody);
-      console.log(response.data);
       localStorage.setItem("token", response.data.token);
       dispatch(authActions.login({ token: response.data.token }));
       history.replace("/admin");
