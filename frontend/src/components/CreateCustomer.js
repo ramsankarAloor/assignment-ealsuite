@@ -5,7 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 
 const baseurl = BASE_URL;
-const createCustUrl = `${baseurl}/admin/create`;
+const createUrl = `${baseurl}/admin/create`;
 
 function CreateCustomer() {
   const nameRef = useRef();
@@ -30,7 +30,7 @@ function CreateCustomer() {
 
     const token = localStorage.getItem("token");
     try {
-      axios.post(createCustUrl, reqBody, {
+      axios.post(createUrl, reqBody, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

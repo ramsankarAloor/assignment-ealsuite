@@ -1,4 +1,5 @@
 const Customer = require("../models/customer");
+const Invoice = require("../models/invoice");
 
 exports.create = async (req, res) => {
   try {
@@ -13,8 +14,16 @@ exports.create = async (req, res) => {
       await Customer.create({ name, email, phone, address });
       return res.status(201).json({ message: "created new customer" });
     } else if (category === "invoice") {
+        const { customer, date, amount, status } = req.body
+        const {dataValues : cust } = await Customer.findOne({attributes:['id'], where : {name : customer}}) 
+        if(!cust){
+            return res.status(400).json({error : "invalid customer"})
+        }
+
+        await Invoice.create({date, amount, status, customerId : cust.id})
+        res.status(200).json({message : "invoice created"});
     } else {
-      return res.status(400).error({ error: "invalid category" });
+      return res.status(400).json({ error: "invalid category" });
     }
   } catch (error) {
     return res.status(500).json({ error: "server side error in create." });
