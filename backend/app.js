@@ -9,9 +9,10 @@ app.use(cors())
 app.use(express.json())
 
 const loginRoute = require('./routes/login')
+const adminRoutes = require('./routes/admin')
 
 app.use("/login", loginRoute)
-
+app.use("/admin", adminRoutes)
 
 sequelize
   .sync({alter:true})

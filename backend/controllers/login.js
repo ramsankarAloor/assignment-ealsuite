@@ -19,12 +19,12 @@ exports.login = async (req, res) => {
     if (savedPass !== password) {
       return res.status(401).json({ error: "wrong password" });
     }
-    res.status(200).json({
+    return res.status(200).json({
       message: "login successful",
       token: generateToken(existingUser.id),
     });
   } catch (error) {
-    res.status(500).json({ error: "server side error on login" });
+    return res.status(500).json({ error: "server side error on login" });
   }
 };
 
