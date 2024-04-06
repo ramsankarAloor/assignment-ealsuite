@@ -7,7 +7,7 @@ import { BASE_URL } from "../config";
 const baseurl = BASE_URL;
 const createCustUrl = `${baseurl}/admin/create`;
 
-function Create() {
+function CreateCustomer() {
   const nameRef = useRef();
   const phoneRef = useRef();
   const emailRef = useRef();
@@ -96,4 +96,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default CreateCustomer;
