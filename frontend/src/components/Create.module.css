@@ -10,6 +10,7 @@
 }
 .s-button {
   height: 3rem;
+  width: 100%;
   font-size: larger;
   font-weight: 500;
 }

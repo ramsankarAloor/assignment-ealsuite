@@ -13,7 +13,8 @@ function CreateCustomer() {
   const emailRef = useRef();
   const addressRef = useRef();
 
-  function submitHandler() {
+  function submitHandler(e) {
+    e.preventDefault()
     const name = nameRef.current.value;
     const phone = phoneRef.current.value;
     const email = emailRef.current.value;
@@ -47,51 +48,53 @@ function CreateCustomer() {
   return (
     <Card className={styles["for-card"]}>
       <h3>New Customer</h3>
-      <div className="form-floating">
-        <input
-          className="form-control"
-          type="text"
-          required
-          placeholder="name"
-          id="name"
-          ref={nameRef}
-        ></input>
-        <label htmlFor="name">Name</label>
-      </div>
-      <div className="form-floating">
-        <input
-          className="form-control"
-          type="text"
-          pattern="[0-9]{10}"
-          placeholder="phone"
-          id="phone"
-          ref={phoneRef}
-        ></input>
-        <label htmlFor="phone">Phone</label>
-      </div>
-      <div className="form-floating">
-        <input
-          className="form-control"
-          type="email"
-          placeholder="email"
-          id="email"
-          ref={emailRef}
-        ></input>
-        <label htmlFor="email">Email</label>
-      </div>
-      <div className="form-floating">
-        <input
-          className="form-control"
-          type="text"
-          placeholder="address"
-          id="address"
-          ref={addressRef}
-        ></input>
-        <label htmlFor="address">Address</label>
-      </div>
-      <Button className={styles["s-button"]} onClick={submitHandler}>
-        Create new customer
-      </Button>
+      <form onSubmit={submitHandler}>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            type="text"
+            required
+            placeholder="name"
+            id="name"
+            ref={nameRef}
+          ></input>
+          <label htmlFor="name">Name</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            type="text"
+            pattern="[0-9]{10}"
+            placeholder="phone"
+            id="phone"
+            ref={phoneRef}
+          ></input>
+          <label htmlFor="phone">Phone</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            type="email"
+            placeholder="email"
+            id="email"
+            ref={emailRef}
+          ></input>
+          <label htmlFor="email">Email</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="address"
+            id="address"
+            ref={addressRef}
+          ></input>
+          <label htmlFor="address">Address</label>
+        </div>
+        <Button className={styles["s-button"]} type="submit">
+          Create new customer
+        </Button>
+      </form>
     </Card>
   );
 }
