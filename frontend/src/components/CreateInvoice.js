@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import styles from "./Create.module.css";
 import { useRef } from "react";
+import {useSelector} from 'react-redux'
 import axios from "axios";
 import { BASE_URL } from "../config";
 
@@ -12,7 +13,8 @@ function CreateInvoice() {
   const dateRef = useRef();
   const amountRef = useRef();
   const statusRef = useRef();
-  const customerOptions = ["Ramsankar", "Rajat"]; //dummy for now
+  const customerOptions = useSelector(state => state.customers.customers) //dummy for now
+  console.log("cust options => ", customerOptions);
 
   function customerValidation(customerRef) {
     if (!customerOptions.includes(customerRef.current.value)) {
@@ -58,7 +60,7 @@ function CreateInvoice() {
           <label htmlFor="customer">Customer name</label>
           <datalist id="customerOptions">
             {customerOptions.map((option) => (
-              <option key={option} value={option} />
+              <option key={option.name} value={option.name} />
             ))}
           </datalist>
         </div>

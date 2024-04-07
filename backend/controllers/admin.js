@@ -7,25 +7,36 @@ exports.create = async (req, res) => {
     if (category === "customer") {
       const { name, phone, email, address } = req.body;
       if (!name) {
-        return res
-          .status(400)
-          .json({ error: "name is mandatory" });
+        return res.status(400).json({ error: "name is mandatory" });
       }
       await Customer.create({ name, email, phone, address });
       return res.status(201).json({ message: "created new customer" });
     } else if (category === "invoice") {
-        const { customer, date, amount, status } = req.body
-        const {dataValues : cust } = await Customer.findOne({attributes:['id'], where : {name : customer}}) 
-        if(!cust){
-            return res.status(400).json({error : "invalid customer"})
-        }
+      const { customer, date, amount, status } = req.body;
+      const { dataValues: cust } = await Customer.findOne({
+        attributes: ["id"],
+        where: { name: customer },
+      });
+      if (!cust) {
+        return res.status(400).json({ error: "invalid customer" });
+      }
 
-        await Invoice.create({date, amount, status, customerId : cust.id})
-        res.status(200).json({message : "invoice created"});
+      await Invoice.create({ date, amount, status, customerId: cust.id });
+      res.status(200).json({ message: "invoice created" });
     } else {
       return res.status(400).json({ error: "invalid category" });
     }
   } catch (error) {
     return res.status(500).json({ error: "server side error in create." });
+  }
+};
+
+exports.list = async (req, res) => {
+  try {
+    const customers = await Customer.findAll();
+    const invoices = await Invoice.findAll();
+    return res.status(200).json({ customers, invoices });
+  } catch (error) {
+    return res.status(500).json({ error: "server side error in list" });
   }
 };
