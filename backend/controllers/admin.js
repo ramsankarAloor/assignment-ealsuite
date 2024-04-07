@@ -47,3 +47,27 @@ exports.list = async (req, res) => {
     return res.status(500).json({ error: "server side error in list" });
   }
 };
+
+exports.edit = async (req, res) => {
+  try {
+    const { category } = req.body;
+    if (category === "invoice") {
+      const { id: invoiceId } = req.params;
+      const { customerName, date, amount, status } = req.body;
+      const { dataValues: cust } = await Customer.findOne({
+        attributes: ["id"],
+        where: { name: customerName },
+      });
+      await Invoice.update(
+        { date, amount, status, customerId: cust.id },
+        { where: { id: invoiceId } }
+      );
+      return res.status(200).json({ message: "update successful." });
+    } else if (category === "customer") {
+    } else {
+      return res.status(400).json({ error: "invalid category" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "server side error in edit." });
+  }
+};

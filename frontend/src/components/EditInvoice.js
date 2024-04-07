@@ -8,6 +8,7 @@ import {Modal, Button} from 'react-bootstrap';
 
 const baseurl = BASE_URL;
 const listUrl = `${baseurl}/admin/list`;
+const editUrl = `${baseurl}/admin/edit`;
 
 function EditInvoice() {
     const [id, setId] = useState()
@@ -16,9 +17,25 @@ function EditInvoice() {
     const [amount, setAmount] = useState()
     const [status, setStatus] = useState()
     const [modalOpen, setModalOpen] = useState()
-    const [validCustomer, setValidCustomer] = useState(true);
     const customerOptions = useSelector((state) => state.customers.customers);
     const dispatch = useDispatch()
+
+    async function submitHandler(e){
+        e.preventDefault()
+        const reqBody = {customerName, date, amount, status, category : "invoice"}
+        const token = localStorage.getItem("token");
+        try {
+            await axios.put(`${editUrl}/${id}`, reqBody, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+            })
+            dispatch(invoicesActions.onEdit({id, customerName, date, amount, status}))
+        } catch (error) {
+            console.error(error)
+        }
+        setModalOpen(false)
+    }
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -97,7 +114,7 @@ function EditInvoice() {
           <Modal.Title>Edit customer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form>
+        <form onSubmit={submitHandler}>
         <div className="form-floating mb-3">
           <select className="form-select" id="customer" value={customerName} onChange={e => setCustomerName(e.target.value)}>
             {customerOptions.map((cust, index) => {

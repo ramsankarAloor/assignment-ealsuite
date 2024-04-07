@@ -10,6 +10,20 @@ const invoicesSlice = createSlice({
         },
         onCreate(state, action){
             state.invoices.push(action.payload)
+        },
+        onEdit(state, action){
+            const {id, customerName, date, status, amount} = action.payload
+            let obj
+            for(let invoice of state.invoices){
+                if(invoice.id === id){
+                    obj = invoice
+                    break
+                }
+            }
+            obj.date = date
+            obj.status = status
+            obj.amount = amount
+            obj.customer.name = customerName
         }
     }
 })
