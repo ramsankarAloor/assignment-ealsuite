@@ -6,7 +6,7 @@ function CustomerList() {
   const list = customers.map((customer, index) => {
     return (
       <div key={index} className={styles["table-row"]}>
-        <div>{index + 1}</div>
+        <div className={styles["number-element"]}>{index + 1}</div>
         <div className={styles["row-element"]}>{customer.name}</div>
         <div className={styles["row-element"]}>{customer.phone}</div>
         <div className={styles["row-element"]}>{customer.email}</div>
@@ -19,7 +19,7 @@ function CustomerList() {
     <div className={styles.full}>
       <div className={styles["table-wrapper"]}>
         <div className={styles["table-row"]}>
-          <div>
+          <div className={styles["number-element"]}>
             <strong>#</strong>
           </div>
           <div className={styles["row-element"]}>

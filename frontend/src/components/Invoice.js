@@ -2,6 +2,7 @@ import { NavLink, Redirect, Route, Switch, useRouteMatch } from "react-router-do
 import styles from './Customer.module.css'
 import CreateInvoice from "./CreateInvoice";
 import InvoiceList from './InvoiceList';
+import EditInvoice from "./EditInvoice";
 
 function Invoice() {
     const match = useRouteMatch();
@@ -23,6 +24,15 @@ function Invoice() {
               Create
             </NavLink>
           </div>
+          <div className={styles["header-element"]}>
+            <NavLink
+              to={`${match.path}/edit`}
+              className={styles['for-navlink']}
+              activeClassName={styles.selected}
+            >
+              Edit
+            </NavLink>
+          </div>
         </div>
         <div className={styles.body}>
           <Switch>
@@ -34,6 +44,9 @@ function Invoice() {
             </Route>
             <Route path={`${match.path}/create`}>
               <CreateInvoice />
+            </Route>
+            <Route path={`${match.path}/edit`}>
+              <EditInvoice />
             </Route>
           </Switch>
         </div>

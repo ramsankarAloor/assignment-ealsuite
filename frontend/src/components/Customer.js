@@ -8,6 +8,7 @@ import {
   Redirect,
 } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerList from "./CustomerList";
+import EditCustomer from "./EditCustomer";
 
 function Customer() {
   const match = useRouteMatch();
@@ -29,6 +30,15 @@ function Customer() {
             Create
           </NavLink>
         </div>
+        <div className={styles["header-element"]}>
+          <NavLink
+            to={`${match.path}/edit`}
+            className={styles['for-navlink']}
+            activeClassName={styles.selected}
+          >
+            Edit
+          </NavLink>
+        </div>
       </div>
       <div className={styles.body}>
         <Switch>
@@ -40,6 +50,9 @@ function Customer() {
           </Route>
           <Route path={`${match.path}/create`}>
             <CreateCustomer />
+          </Route>
+          <Route path={`${match.path}/edit`}>
+            <EditCustomer />
           </Route>
         </Switch>
       </div>

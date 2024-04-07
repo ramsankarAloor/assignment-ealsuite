@@ -9,14 +9,18 @@
 }
 .table-row{
     width: 100%;
-    min-height: 2rem;
+    min-height: 3rem;
     display: flex;
     border-bottom: 1px solid #d9d5d56b;
 }
-
+.number-element{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .row-element {
   flex: 1;
-  height: 100%;
+  height: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
