@@ -11,11 +11,38 @@ import Customer from "../components/Customer";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
 import Invoice from "../components/Invoice";
+import { useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../config";
+import { customersActions } from "../store/customers";
+import { invoicesActions } from "../store/invoices";
+
+const baseurl = BASE_URL;
+const listUrl = `${baseurl}/admin/list`;
 
 function AdminPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const match = useRouteMatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    async function getList() {
+      try {
+        const response = await axios.get(listUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response.data)
+        dispatch(customersActions.setCustomers(response.data.customers))
+        dispatch(invoicesActions.setInvoices(response.data.invoices))
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getList();
+  }, []);
 
   function logoutHandler() {
     dispatch(authActions.logout());

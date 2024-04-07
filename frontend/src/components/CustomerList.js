@@ -1,28 +1,8 @@
-import { useEffect } from "react";
 import styles from "./List.module.css";
-import axios from "axios";
-import { BASE_URL } from "../config";
-
-const baseurl = BASE_URL;
-const listUrl = `${baseurl}/admin/list`;
+import { useSelector } from 'react-redux';
 
 function CustomerList() {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    async function getCustomers() {
-      try {
-        const response = await axios.get(listUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(response.data)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getCustomers();
-  }, []);
+  const customers = useSelector(state => state.customers.customers)
 
   return (
     <div className={styles["table-wrapper"]}>
