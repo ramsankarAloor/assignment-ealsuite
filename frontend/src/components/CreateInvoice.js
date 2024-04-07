@@ -1,9 +1,10 @@
 import { Button, Card } from "react-bootstrap";
 import styles from "./Create.module.css";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../config";
+import { invoicesActions } from "../store/invoices";
 
 const baseurl = BASE_URL;
 const createUrl = `${baseurl}/admin/create`;
@@ -14,6 +15,7 @@ function CreateInvoice() {
   const amountRef = useRef();
   const statusRef = useRef();
   const customerOptions = useSelector((state) => state.customers.customers);
+  const dispatch = useDispatch()
   const [validCustomer, setValidCustomer] = useState(true);
 
   function customerValidation(ref) {
@@ -44,6 +46,7 @@ function CreateInvoice() {
           Authorization: `Bearer ${token}`,
         },
       });
+      dispatch(invoicesActions.onCreate({customer: {name : customer}, date, amount, status}))
     } catch (error) {
       console.error(error);
     }

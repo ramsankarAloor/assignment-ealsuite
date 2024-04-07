@@ -1,8 +1,10 @@
 import { Button, Card } from "react-bootstrap";
 import styles from "./Create.module.css";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../config";
+import { customersActions } from "../store/customers";
 
 const baseurl = BASE_URL;
 const createUrl = `${baseurl}/admin/create`;
@@ -12,9 +14,10 @@ function CreateCustomer() {
   const phoneRef = useRef();
   const emailRef = useRef();
   const addressRef = useRef();
+  const dispatch = useDispatch();
 
   function submitHandler(e) {
-    e.preventDefault()
+    e.preventDefault();
     const name = nameRef.current.value;
     const phone = phoneRef.current.value;
     const email = emailRef.current.value;
@@ -35,6 +38,7 @@ function CreateCustomer() {
           Authorization: `Bearer ${token}`,
         },
       });
+      dispatch(customersActions.onCreate({name, phone, email, address}))
     } catch (error) {
       console.error(error);
     }

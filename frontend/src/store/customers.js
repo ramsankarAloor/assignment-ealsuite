@@ -6,6 +6,9 @@ const customersSlice = createSlice({
     reducers : {
         setCustomers(state, action){
             state.customers = action.payload
+        },
+        onCreate(state, action) {
+            state.customers.push(action.payload)
         }
     }
 })
