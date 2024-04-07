@@ -33,8 +33,8 @@ exports.create = async (req, res) => {
 
 exports.list = async (req, res) => {
   try {
-    const customers = await Customer.findAll();
-    const invoices = await Invoice.findAll();
+    const customers = await Customer.findAll({attributes: ["name", "phone", "email", "address"]});
+    const invoices = await Invoice.findAll({include: [{ model: Customer, attributes: ["name"] }], attributes:["date", "amount", "status"]});
     return res.status(200).json({ customers, invoices });
   } catch (error) {
     return res.status(500).json({ error: "server side error in list" });

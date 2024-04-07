@@ -5,7 +5,7 @@ const invoicesSlice = createSlice({
     initialState : {invoices : []},
     reducers : {
         setInvoices(state, action){
-            state.customers = action.payload
+            state.invoices = action.payload
         }
     }
 })

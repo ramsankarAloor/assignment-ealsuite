@@ -1,6 +1,7 @@
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from "react-router-dom/cjs/react-router-dom.min";
 import styles from './Customer.module.css'
 import CreateInvoice from "./CreateInvoice";
+import InvoiceList from './InvoiceList';
 
 function Invoice() {
     const match = useRouteMatch();
@@ -29,7 +30,7 @@ function Invoice() {
               <Redirect to={`${match.path}/list`} />
             </Route>
             <Route path={`${match.path}/list`}>
-              {/* <CustomerList /> */}
+              <InvoiceList />
             </Route>
             <Route path={`${match.path}/create`}>
               <CreateInvoice />
