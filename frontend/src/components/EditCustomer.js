@@ -9,6 +9,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const baseurl = BASE_URL;
 const listUrl = `${baseurl}/admin/list`;
+const editUrl = `${baseurl}/admin/edit`;
 
 function EditCustomer() {
   const [id, setId] = useState();
@@ -18,6 +19,25 @@ function EditCustomer() {
   const [address, setAddress] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
+
+  async function submitHandler(e) {
+    e.preventDefault();
+    const reqBody = { name, phone, email, address, category: "customer" };
+    const token = localStorage.getItem("token");
+    try {
+      await axios.put(`${editUrl}/${id}`, reqBody, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(
+        customersActions.onEdit({ id, name, phone, address, email })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+    setModalOpen(false);
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -95,7 +115,7 @@ function EditCustomer() {
           <Modal.Title>Edit customer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={submitHandler}>
             <div className="form-floating mb-3">
               <input
                 className="form-control"
@@ -142,9 +162,7 @@ function EditCustomer() {
               ></input>
               <label htmlFor="address">Address</label>
             </div>
-            <Button type="submit">
-              Edit Customer
-            </Button>
+            <Button type="submit">Edit Customer</Button>
           </form>
         </Modal.Body>
       </Modal>

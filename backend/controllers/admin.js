@@ -58,12 +58,23 @@ exports.edit = async (req, res) => {
         attributes: ["id"],
         where: { name: customerName },
       });
+      if(!cust){
+        return res.status(400).json({ error: "invalid customer" });
+      }
       await Invoice.update(
         { date, amount, status, customerId: cust.id },
         { where: { id: invoiceId } }
       );
-      return res.status(200).json({ message: "update successful." });
+      return res.status(200).json({ message: "Invoice update successful." });
     } else if (category === "customer") {
+      const {id : customerId} = req.params
+      const {name, phone, email, address} = req.body
+
+      if(name.trim() === ""){
+        return res.status(400).json({error : "name is mandatory"})
+      }
+      await Customer.update({name, phone, email, address}, {where : {id : customerId}})
+      return res.status(200).json({message : "Customer update successful."})
     } else {
       return res.status(400).json({ error: "invalid category" });
     }

@@ -34,7 +34,6 @@ function AdminPage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data)
         dispatch(customersActions.setCustomers(response.data.customers))
         dispatch(invoicesActions.setInvoices(response.data.invoices))
       } catch (error) {
