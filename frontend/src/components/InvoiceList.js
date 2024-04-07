@@ -6,7 +6,7 @@ function InvoiceList() {
   const list = invoices.map((invoice, index) => {
     return (
       <div key={index} className={styles["table-row"]}>
-        <div className={styles["number-element"]}>{index + 1}</div>
+        <div>{index + 1}</div>
         <div className={styles["row-element"]}>{invoice.customer.name}</div>
         <div className={styles["row-element"]}>{invoice.date}</div>
         <div className={styles["row-element"]}>{invoice.amount}</div>
@@ -19,7 +19,7 @@ function InvoiceList() {
     <div className={styles.full}>
       <div className={styles["table-wrapper"]}>
         <div className={styles["table-row"]}>
-          <div className={styles["number-element"]}>
+          <div>
             <strong>#</strong>
           </div>
           <div className={styles["row-element"]}>

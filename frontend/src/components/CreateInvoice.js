@@ -1,7 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import styles from "./Create.module.css";
-import { useRef } from "react";
-import {useSelector} from 'react-redux'
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../config";
 
@@ -13,20 +13,24 @@ function CreateInvoice() {
   const dateRef = useRef();
   const amountRef = useRef();
   const statusRef = useRef();
-  const customerOptions = useSelector(state => state.customers.customers) //dummy for now
-  console.log("cust options => ", customerOptions);
+  const customerOptions = useSelector((state) => state.customers.customers);
+  const [validCustomer, setValidCustomer] = useState(true);
 
-  function customerValidation(customerRef) {
-    if (!customerOptions.includes(customerRef.current.value)) {
-      customerRef.current.setCustomValidity("Please select a valid option");
+  function customerValidation(ref) {
+    if (ref.current.value === "") {
+      setValidCustomer(false);
+      return false;
     } else {
-      customerRef.current.setCustomValidity("");
+      setValidCustomer(true);
+      return true;
     }
   }
 
   async function submitHandler(e) {
     e.preventDefault();
-    customerValidation(customerRef);
+    if (!customerValidation(customerRef)) {
+      return;
+    }
     const customer = customerRef.current.value;
     const date = dateRef.current.value;
     const amount = amountRef.current.value;
@@ -43,6 +47,11 @@ function CreateInvoice() {
     } catch (error) {
       console.error(error);
     }
+
+    customerRef.current.value = "";
+    dateRef.current.value = "";
+    amountRef.current.value = "";
+    statusRef.current.value = "Unpaid";
   }
 
   return (
@@ -50,19 +59,20 @@ function CreateInvoice() {
       <h3>New Invoice</h3>
       <form onSubmit={submitHandler}>
         <div className="form-floating mb-3">
-          <input
-            list="customerOptions"
-            className="form-control"
-            id="customer"
-            placeholder="customer"
-            ref={customerRef}
-          />
-          <label htmlFor="customer">Customer name</label>
-          <datalist id="customerOptions">
-            {customerOptions.map((option) => (
-              <option key={option.name} value={option.name} />
-            ))}
-          </datalist>
+          <select className="form-select" id="customer" ref={customerRef}>
+            <option value="">---Select Customer---</option>
+            {customerOptions.map((cust, index) => {
+              return (
+                <option key={index} value={cust.name}>
+                  {cust.name}
+                </option>
+              );
+            })}
+          </select>
+          {!validCustomer && (
+            <span className={styles.error}>* Please select a customer!</span>
+          )}
+          <label htmlFor="customer">Customer</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -87,9 +97,9 @@ function CreateInvoice() {
         </div>
         <div className="form-floating mb-3">
           <select className="form-select" id="status" ref={statusRef}>
-            <option value="unpaid">Unpaid</option>
-            <option value="paid">Paid</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="Unpaid">Unpaid</option>
+            <option value="Paid">Paid</option>
+            <option value="Cancelled">Cancelled</option>
           </select>
           <label htmlFor="status">Status</label>
         </div>
