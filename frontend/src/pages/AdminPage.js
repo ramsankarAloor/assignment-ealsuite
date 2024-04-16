@@ -16,6 +16,7 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import { customersActions } from "../store/customers";
 import { invoicesActions } from "../store/invoices";
+import categories from "../categories";
 
 const baseurl = BASE_URL;
 const listUrl = `${baseurl}/admin/list`;
@@ -24,6 +25,21 @@ function AdminPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const match = useRouteMatch();
+
+  const navlinks = categories.map((cat, index) => {
+    return (
+      <div className={styles["sections"]}>
+        <NavLink
+          key={index}
+          to={`${match.path}/${cat.route}`}
+          className={styles["for-nav-link"]}
+          activeClassName={styles.selected}
+        >
+          {cat.name}
+        </NavLink>
+      </div>
+    );
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,8 +50,8 @@ function AdminPage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        dispatch(customersActions.setCustomers(response.data.customers))
-        dispatch(invoicesActions.setInvoices(response.data.invoices))
+        dispatch(customersActions.setCustomers(response.data.customers));
+        dispatch(invoicesActions.setInvoices(response.data.invoices));
       } catch (error) {
         console.error(error);
       }
@@ -53,24 +69,7 @@ function AdminPage() {
     <div className={styles["full-size"]}>
       <div className={styles["left-part"]}>
         <div>
-          <div className={styles["sections"]}>
-            <NavLink
-              to={`${match.path}/customer`}
-              className={styles["for-nav-link"]}
-              activeClassName={styles.selected}
-            >
-              Customer
-            </NavLink>
-          </div>
-          <div className={styles["sections"]}>
-            <NavLink
-              to={`${match.path}/invoice`}
-              className={styles["for-nav-link"]}
-              activeClassName={styles.selected}
-            >
-              Invoice
-            </NavLink>
-          </div>
+          {navlinks}
         </div>
         <div className={styles.sections}>
           <button className="btn btn-outline-secondary" onClick={logoutHandler}>
