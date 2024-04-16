@@ -1,5 +1,5 @@
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from "react-router-dom/cjs/react-router-dom.min";
-import styles from './Customer.module.css'
+import styles from './WrapperComponent.module.css'
 import CreateInvoice from "./CreateInvoice";
 import InvoiceList from './InvoiceList';
 import EditInvoice from "./EditInvoice";

@@ -1,6 +1,6 @@
 const categories = [
-  { name: "Customer", route: "customer" },
-  { name: "Invoice", route: "invoice" },
+  { name: "Customers", route: "customer", alt:"customers" },
+  { name: "Invoices", route: "invoice", alt: "invoices" },
 ];
 
 export default categories;

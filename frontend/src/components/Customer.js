@@ -1,5 +1,5 @@
 import CreateCustomer from "./CreateCustomer";
-import styles from "./Customer.module.css";
+import styles from "./WrapperComponent.module.css";
 import {
   Switch,
   NavLink,
