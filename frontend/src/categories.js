@@ -13,6 +13,7 @@ async function getOptions(category) {
       },
     });
 
+
     const arr = response.data.map((ele) => {
       return ele.name;
     });

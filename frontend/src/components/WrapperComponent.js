@@ -7,7 +7,6 @@ import {
   } from "react-router-dom";
 import styles from "./WrapperComponent.module.css";
 import List from "./List";
-import CreateCustomer from "./CreateCustomer";
 import Create from "./Create";
 
 

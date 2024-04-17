@@ -7,10 +7,8 @@ import {
   useRouteMatch,
 } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "./AdminPage.module.css";
-import Customer from "../components/Customer";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
-import Invoice from "../components/Invoice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../config";

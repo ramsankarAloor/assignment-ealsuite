@@ -10,14 +10,9 @@ app.use(express.json())
 
 const loginRoute = require('./routes/login')
 const adminRoutes = require('./routes/admin');
-const Customer = require("./models/customer");
-const Invoice = require("./models/invoice");
 
 app.use("/login", loginRoute)
 app.use("/admin", adminRoutes)
-
-Customer.hasMany(Invoice, { foreignKey: 'customerId' });
-Invoice.belongsTo(Customer, { foreignKey: 'customerId' });
 
 sequelize
   .sync()

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database");
 
-const Invoice = sequelize.define("invoice", {
+const invoice = sequelize.define("invoice", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -13,10 +13,17 @@ const Invoice = sequelize.define("invoice", {
   },
   amount: {
     type: DataTypes.INTEGER,
+    allowNull: false
   },
   status: {
     type: DataTypes.STRING,
   },
+  customer: {
+    type : DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  timestamps: false
 });
 
-module.exports = Invoice;
+module.exports = invoice;
