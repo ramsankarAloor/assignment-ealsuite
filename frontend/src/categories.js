@@ -12,12 +12,12 @@ async function getOptions(category) {
         Authorization: `Bearer ${token}`,
       },
     });
-  
-    const arr = response.data.map((ele)=> {
+
+    const arr = response.data.map((ele) => {
       return ele.name;
-    })
-   
-    return arr;
+    });
+    const modified = ["<---select--->", ...arr];
+    return modified;
   } catch (error) {
     console.error(error);
   }
@@ -53,7 +53,7 @@ const categories = [
         name: "status",
         drop: true,
         options: async () => {
-          return ["unpaid", "paid", "cancelled"];
+          return ["<---select--->","unpaid", "paid", "cancelled"];
         },
       },
     ],

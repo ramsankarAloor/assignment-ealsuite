@@ -89,7 +89,7 @@ function Create(props) {
 
       
     } catch (error) {
-      console.error(error);
+      alert("Error - Give valid inputs")
     }
   }
 
