@@ -7,6 +7,8 @@ import {
   } from "react-router-dom";
 import styles from "./WrapperComponent.module.css";
 import List from "./List";
+import CreateCustomer from "./CreateCustomer";
+import Create from "./Create";
 
 
 function WrapperComponent(props){
@@ -47,7 +49,7 @@ function WrapperComponent(props){
                 <List category={props.category}/>
               </Route>
               <Route path={`${match.path}/create`}>
-                {/* <CreateCustomer /> */}
+                <Create category={props.category}/>
               </Route>
               <Route path={`${match.path}/edit`}>
                 {/* <EditCustomer /> */}
