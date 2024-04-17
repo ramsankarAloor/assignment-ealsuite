@@ -8,6 +8,7 @@ import {
 import styles from "./WrapperComponent.module.css";
 import List from "./List";
 import Create from "./Create";
+import Edit from "./Edit";
 
 
 function WrapperComponent(props){
@@ -51,7 +52,7 @@ function WrapperComponent(props){
                 <Create category={props.category}/>
               </Route>
               <Route path={`${match.path}/edit`}>
-                {/* <EditCustomer /> */}
+                <Edit category={props.category}/>
               </Route>
             </Switch>
           </div>
