@@ -4,7 +4,7 @@ const {Sequelize} = require('sequelize');
 
 exports.create = async (req, res) => {
   try {
-    const { category } = req.body;
+    const category = req.query.category;
     if (category === "customer") {
       const { name, phone, email, address } = req.body;
       if (!name) {
@@ -63,8 +63,6 @@ exports.list = async (req, res) => {
         order: [["id", "ASC"]],
         raw: true, // Return raw data
       });
-
-      return res.status(200).json(invoices);
 
       return res.status(200).json(invoices);
     } catch (error) {
