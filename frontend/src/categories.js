@@ -35,8 +35,6 @@ const categories = [
         type: "text",
         pattern: ".*",
         typeModel: "STRING",
-        allowNull: false,
-        unique: true,
       },
       {
         name: "phone",
@@ -60,7 +58,6 @@ const categories = [
           return await getOptions("customer");
         },
         typeModel: "STRING",
-        allowNull: true,
       },
       { name: "date", type: "date", typeModel: "DATEONLY" },
       {
