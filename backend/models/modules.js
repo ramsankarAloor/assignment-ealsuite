@@ -11,6 +11,7 @@ exports.getCategories = async (req, res) => {
       cat.fields.forEach((field) => {
         fields[field.name] = {
           type: DataTypes[field.typeModel],
+          ...(field.unique && { unique: true }),
         };
       });
 

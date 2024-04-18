@@ -35,6 +35,7 @@ const categories = [
         type: "text",
         pattern: ".*",
         typeModel: "STRING",
+        unique: true
       },
       {
         name: "phone",
