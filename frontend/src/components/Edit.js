@@ -35,6 +35,7 @@ function Edit(props) {
 
   const headings =
     list.length > 0 && Object.keys(list[0]).filter((key) => key !== "id");
+
   const listElements = list.map((element, index) => {
     return (
       <div key={index} className={styles["table-row"]}>
@@ -49,7 +50,7 @@ function Edit(props) {
         <div className={styles["row-element"]}>
           <button
             onClick={() => {
-              setSelectedItem(element);
+              setSelectedItem(element); // Update selectedItem here
               setModalOpen(true);
             }}
           >
@@ -82,6 +83,7 @@ function Edit(props) {
 
       {selectedItem && (
         <EditModal
+          key={selectedItem.id} // Use a unique key for the selected item
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           category={props.category}

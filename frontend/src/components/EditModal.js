@@ -1,6 +1,7 @@
 import { Modal, Button } from "react-bootstrap";
 import categories from "../categories";
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
 function EditModal(props) {
   const cat = props.category;
@@ -10,7 +11,7 @@ function EditModal(props) {
   const [fieldInputs, setFieldInputs] = useState([]);
   const [formData, setFormData] = useState(props.initialData);
 
-  console.log("data => ", formData);
+  console.log("id => ", formData.id);
   // now value is there in the formData. Now, need to populate the fields with it.
 
   useEffect(() => {
@@ -24,6 +25,7 @@ function EditModal(props) {
                 key={index}
                 className="form-select mb-3"
                 id={field.name}
+                value={formData[field.name]}
                 onChange={(e) =>
                   setFormData((prevFormData) => {
                     return {
@@ -49,6 +51,7 @@ function EditModal(props) {
                   required
                   placeholder={field.name}
                   id={field.name}
+                  value={formData[field.name]}
                   onChange={(e) =>
                     setFormData((prevFormData) => {
                       return {
@@ -69,7 +72,15 @@ function EditModal(props) {
     fetchOptions();
   }, [fields]);
 
-  function submitHandler() {}
+  function submitHandler(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    try {
+      axios.put()
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <Modal show={props.modalOpen} onHide={() => props.setModalOpen(false)}>
