@@ -30,15 +30,22 @@ const categories = [
     route: "customer",
     alt: "customers",
     fields: [
-      { name: "name", type: "text", pattern: ".*", typeModal: "STRING", allowNull: false, unique : true },
+      {
+        name: "name",
+        type: "text",
+        pattern: ".*",
+        typeModel: "STRING",
+        allowNull: false,
+        unique: true,
+      },
       {
         name: "phone",
         type: "text",
         pattern: "[0-9]{10}",
-        typeModal: "STRING",
+        typeModel: "STRING",
       },
-      { name: "email", type: "email", typeModal: "STRING" },
-      { name: "address", type: "text", pattern: ".*", typeModal: "STRING" },
+      { name: "email", type: "email", typeModel: "STRING" },
+      { name: "address", type: "text", pattern: ".*", typeModel: "STRING" },
     ],
   },
   {
@@ -52,15 +59,15 @@ const categories = [
         options: async () => {
           return await getOptions("customer");
         },
-        typeModal: "STRING",
-        allowNull: true
+        typeModel: "STRING",
+        allowNull: true,
       },
-      { name: "date", type: "date", typeModal: "DATEONLY" },
+      { name: "date", type: "date", typeModel: "DATEONLY" },
       {
         name: "amount",
         type: "text",
         pattern: "[0-9]*[.]?[0-9]{0,2}",
-        typeModal: "INTEGER",
+        typeModel: "INTEGER",
       },
       {
         name: "status",
@@ -68,7 +75,7 @@ const categories = [
         options: async () => {
           return ["<---select--->", "unpaid", "paid", "cancelled"];
         },
-        typeModal: "STRING",
+        typeModel: "STRING",
       },
     ],
   },
@@ -76,17 +83,21 @@ const categories = [
 
 async function sendCategories() {
   const token = localStorage.getItem("token");
-  const res = await axios.post(
-    caturl,
-    { categories },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  try {
+    const res = await axios.post(
+      caturl,
+      { categories },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  console.log(res.status);
+    console.log(res.data);
+  } catch (error) {
+    console.error(error.response.data);
+  }
 }
 
 sendCategories();
