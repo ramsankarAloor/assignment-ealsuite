@@ -28,7 +28,6 @@ const categories = [
   {
     name: "Customers",
     route: "customer",
-    alt: "customers",
     fields: [
       {
         name: "name",
@@ -50,7 +49,6 @@ const categories = [
   {
     name: "Invoices",
     route: "invoice",
-    alt: "invoices",
     fields: [
       {
         name: "customer",
