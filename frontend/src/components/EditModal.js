@@ -135,9 +135,6 @@ function EditModal(props) {
   async function submitHandler(e) {
     e.preventDefault();
     const { id, ...reqBody } = formData;
-    // console.log("id => ", id);
-    // console.log("req body => ", reqBody);
-    // console.log("url => ", `${editurl}/?category=${cat}&id=${id}`);
     const token = localStorage.getItem('token');
     try {
       const resp = await axios.put(`${editurl}/?category=${cat}&id=${id}`, reqBody, {

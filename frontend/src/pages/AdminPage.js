@@ -9,11 +9,7 @@ import {
 import styles from "./AdminPage.module.css";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "../config";
-import { customersActions } from "../store/customers";
-import { invoicesActions } from "../store/invoices";
+import { useState } from "react";
 import categories from "../categories";
 import WrapperComponent from "../components/WrapperComponent";
 
